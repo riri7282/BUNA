@@ -1,0 +1,17 @@
+body {
+  font-family: Times New Roman, serif;
+  background-color: DarkGreen;
+}
+
+h1 {
+  color:yellow;
+  text-align:center;
+}
+
+/* css for centering an image: */
+#splash{
+  display:block;
+  width:300px;
+  margin-left:auto;
+  margin-right:auto;
+}
