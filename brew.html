@@ -1,36 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- 
-      This is an HTML comment
-      You can write text in a comment and the content won't be visible in the page
-    -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Buna — BREW</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="screen small">
+    <header class="top">
+      <h2 class="brand small">BUNA — BREWER</h2>
+    </header>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <section class="center">
+      <div class="planet-brew" id="brewPlanet"></div>
+      <div id="brewInfo" class="infoText">Prepare to brew — press READY when you begin</div>
+      <button id="readyBtn" class="readyBtn">I AM READY</button>
+    </section>
 
-    <!--
-      This is the page head - it contains info the browser uses
-      Like the title, which appears on the browser tab but not inside the page
-      Further down you'll see the content that displays in the page
-    -->
-    <title>My Website's Name</title>
+    <footer class="bottom">
+      <div class="note">When you press READY, all participants will be notified.</div>
+    </footer>
+  </main>
 
-    <!-- The website stylesheet -->
-    <link rel="stylesheet" href="./style.css" />
+  <script src="script.js"></script>
+  <script>
+    const chosen = JSON.parse(localStorage.getItem("bunaChosen") || "null");
+    const myId = localStorage.getItem("bunaID");
+    const brewPlanet = document.getElementById("brewPlanet");
+    const readyBtn = document.getElementById("readyBtn");
+    const brewInfo = document.getElementById("brewInfo");
 
-    <!-- The website JavaScript file -->
-    <script src="./script.js" defer></script>
-  </head>
-  <body>
-     <h1>
-       Hello, World.
-    </h1>
-    <p>
-      This is a paragraph.
-    </p>
-    <!-- Image tag is below -->
-    <img src="./assets/gifs/1asp101.gif">
+    if (!chosen || chosen.id !== myId) {
+      brewInfo.innerText = "You are not the chosen brewer for this session.";
+      readyBtn.style.display = "none";
+    } else {
+      brewInfo.innerHTML = `You (${localStorage.getItem("bunaName")}) were chosen to brew. Press <strong>READY</strong> when you begin.`;
+    }
 
-    </body>
+    readyBtn.addEventListener("click", () => {
+      localStorage.setItem("bunaBrewStarted", "true");
+      localStorage.setItem("bunaBrewer", localStorage.getItem("bunaName") || chosen.name);
+      readyBtn.innerText = "SENT — Waiting…";
+      readyBtn.disabled = true;
+      brewInfo.innerText = "Signal sent. The ritual has begun.";
+      // small delay then go to status page
+      setTimeout(()=> window.location.href = "status.html", 900);
+    });
+  </script>
+</body>
 </html>

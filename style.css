@@ -1,17 +1,92 @@
-body {
-  font-family: Times New Roman, serif;
-  background-color: DarkGreen;
+/* style.css — shared look & 9:16 friendly layout plus planet visuals */
+:root{
+  --bg-1:#07080a;
+  --muted: rgba(255,255,255,0.78);
+  --glass: rgba(255,255,255,0.04);
+  --accent: #6d7cff;
+  --max-width: 420px;
+  --radius: 14px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-h1 {
-  color:yellow;
-  text-align:center;
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#04050a 0%, #071026 100%);color:var(--muted);display:flex;align-items:center;justify-content:center;height:100vh}
+.main-wrap{width:100%;max-width:var(--max-width);margin:auto}
+
+/* 9:16 screen container */
+.screen{width:100%;max-width:var(--max-width);aspect-ratio:9/16;padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.small{max-width:360px}
+
+/* header / footer */
+.top{display:flex;flex-direction:column;gap:6px}
+.brand{margin:0;font-weight:600;letter-spacing:3px}
+.sub{margin:0;opacity:0.8;font-size:0.9rem}
+.count{font-size:0.9rem;opacity:0.85}
+
+/* center area */
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+
+/* circle sign-in */
+.circle-wrapper{display:flex;align-items:center;justify-content:center;height:240px}
+.circle{width:210px;height:210px;border-radius:50%;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+.nameInput{width:70%;padding:10px 12px;border-radius:24px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted);outline:none;font-size:1rem;text-align:center}
+
+/* planet screen */
+.planet-body{overflow:hidden}
+.planet-screen{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+.nebula{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen}
+.nebula-1{background:radial-gradient(circle at 30% 20%, rgba(93,107,255,0.06) 0%, transparent 15%), radial-gradient(circle at 70% 80%, rgba(255,100,150,0.03) 0%, transparent 18%)}
+.nebula-2{background:radial-gradient(circle at 50% 60%, rgba(21,211,164,0.02) 0%, transparent 20%)}
+
+/* planet stage */
+.planetStage{display:flex;align-items:center;justify-content:center;height:46%}
+.planet{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #6d7cff, #223);box-shadow:0 0 30px rgba(109,124,255,0.12);transition:width .35s,height .35s,box-shadow .35s,transform .35s}
+
+/* texts */
+.statusText{font-size:0.95rem;opacity:0.9;text-align:center}
+.userInfo{position:relative;opacity:0.85;font-size:0.86rem}
+
+/* brew */
+.planet-brew{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #6d7cff, #223);box-shadow:0 0 60px rgba(109,124,255,0.24);margin:18px auto}
+.infoText{text-align:center;margin:10px 0;opacity:0.95}
+.readyBtn{display:block;margin:12px auto;padding:18px 28px;border-radius:40px;border:1px solid rgba(255,255,255,0.18);background:transparent;color:white;font-weight:600;cursor:pointer}
+
+/* status box */
+.statusBox{background:var(--glass);padding:18px;border-radius:12px;text-align:center;line-height:1.5}
+
+/* tiny helpers */
+.btn{padding:12px 18px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--muted);cursor:pointer}
+.note{opacity:0.7;font-size:0.86rem}
+.actions{display:flex;gap:10px;justify-content:center}
+
+/* small liveliness */
+.circle{transition:transform 1s ease-in-out}
+.brand.small{text-transform:uppercase;font-size:0.85rem}
+
+/* ========= BUNA LOGO (GLOBAL) ========= */
+
+.buna-logo {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 160px; /* change to 200px if you want it MASSIVE */
+  z-index: 99;
+  filter: drop-shadow(0 0 14px rgba(109,124,255,0.55));
+  opacity: 0.95;
+  animation: bunaFloat 6s ease-in-out infinite;
 }
 
-/* css for centering an image: */
-#splash{
-  display:block;
-  width:300px;
-  margin-left:auto;
-  margin-right:auto;
+@keyframes bunaFloat {
+  0%   { transform: translateY(0);}
+  50%  { transform: translateY(-6px);}
+  100% { transform: translateY(0);}
+}
+
+/* small screens safety */
+@media(max-width: 500px){
+  .buna-logo {
+    width: 120px;
+    left: 10px;
+    top: 10px;
+  }
 }
