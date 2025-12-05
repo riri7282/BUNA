@@ -3,7 +3,7 @@ const statusText = document.getElementById("status");
 
 
 let size = 90;
-let maxSize = 260;
+let maxSize = 250;
 let growthSpeed = 0.8;
 
 
@@ -15,9 +15,9 @@ function growPlanet() {
   if (size < maxSize) {
 
     if (boost) {
-      size += 0.9;   // fast in demo
+      size += 0.9;  
     } else {
-      size += growthSpeed; // slow after
+      size += growthSpeed; 
     }
 
     planet.style.width = size + "px";
@@ -57,9 +57,7 @@ function getBunaTime() {
 }
 
 
-/* --------------------------
-   CHOOSE BREWER
----------------------------*/
+
 function chooseBrewer() {
 
   if (localStorage.getItem("bunaChosen")) return;
@@ -74,9 +72,6 @@ function chooseBrewer() {
 chooseBrewer();
 
 
-/* ---------------------------
-   RITUAL STATE (NO NEW COLORS)
-----------------------------*/
 function updateRitualState(){
 
   const chosen = JSON.parse(localStorage.getItem("bunaChosen"));
@@ -122,7 +117,5 @@ function updateRitualState(){
 }
 
 
-/* ---------------------------
-   LOOP
-----------------------------*/
+//loop
 setInterval(updateRitualState, 1000);
