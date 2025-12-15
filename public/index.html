@@ -3,130 +3,337 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Buna — Enter</title>
+<title>Buna — Ritual</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/script.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+<script src="/socket.io/socket.io.js"></script>
+<script src="/script.js" defer></script>
+
 <style>
+/* Reset and Base Styles */
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #141816, #070808);
-  color: #ece6d1;
-  font-family: Inter, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+    margin: 0;
+    /* Deep space black background */
+    background: #070808; 
+    color: #ece6d1;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative; /* Essential for positioning the star layers */
 }
 
+/* --- STARFIELD & COSMIC EFFECTS --- */
+
+/* Base stars layer (subtle, non-moving background) */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -3; 
+    /* Create dense, subtle star dots using a large repeating gradient */
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 80px 100px, #ddd, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 120px 50px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 150px 10px, #eee, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.7;
+}
+
+/* Twinkling stars (medium size, subtle movement) */
+.twinkling {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -2;
+    background: transparent;
+    /* Larger dots for a closer feel, subtly animated */
+    background-image: 
+        radial-gradient(2px 2px at 50px 150px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 100px 200px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 180px 120px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    /* Slow, subtle diagonal panning animation */
+    animation: move-twink-back 200s linear infinite;
+}
+
+@keyframes move-twink-back {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+
+/* --- SCREENS & TYPOGRAPHY --- */
 .screen {
-  width: 360px;
-  height: 640px;
-  padding: 40px 30px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
+    width: 360px;
+    height: 640px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+    display: none; 
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    /* Add subtle box shadow to the screen container for depth */
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.4); 
+    background-color: rgba(7, 8, 8, 0.5); /* Slightly transparent background */
+    border-radius: 8px;
 }
 
-h1 {
-  font-weight: 300;
-  letter-spacing: 0.35em;
-  margin-bottom: 6px;
-}
+/* ... (Keep h1, .sub-text, #count styles) ... */
 
-#sub {
-  font-size: 12px;
-  opacity: 0.6;
-  letter-spacing: 0.1em;
-}
-
-#count {
-  margin-top: 10px;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  opacity: 0.4;
-}
-
+/* ---------- CIRCLE Enhancements (The Planet) ---------- */
 .circle-wrapper {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 220px;
+    height: 220px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slowRotate 120s linear infinite; 
 }
 
 .circle {
-  width: 190px;
-  height: 190px;
-  border-radius: 50%;
-  border: 1px solid rgba(236, 230, 209, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: breathe 4s infinite ease-in-out;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    /* Use a cooler, more ethereal blue/cyan for the sphere highlight */
+    background: radial-gradient(circle at 70% 30%, rgba(56, 200, 255, 0.25) 0%, rgba(7,8,8,0) 70%);
+    border: 1px solid rgba(56, 200, 255, 0.4); /* Blue border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: breathe 4s infinite ease-in-out;
+}
+
+@keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 @keyframes breathe {
-  0% { box-shadow: 0 0 6px rgba(236,230,209,0.2);}
-  50% { box-shadow: 0 0 40px rgba(236,230,209,0.4);}
-  100% { box-shadow: 0 0 6px rgba(236,230,209,0.2);}
+    0% { 
+        box-shadow: 0 0 4px rgba(56, 200, 255, 0.2), inset 0 0 10px rgba(56, 200, 255, 0.05); 
+        transform: scale(1);
+    }
+    50% { 
+        /* Stronger blue/cyan glow */
+        box-shadow: 0 0 35px rgba(56, 200, 255, 0.6), inset 0 0 30px rgba(56, 200, 255, 0.15); 
+        transform: scale(1.03);
+    }
+    100% { 
+        box-shadow: 0 0 4px rgba(56, 200, 255, 0.2), inset 0 0 10px rgba(56, 200, 255, 0.05); 
+        transform: scale(1);
+    }
 }
 
+/* ---------- INPUT ---------- */
 input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(236, 230, 209, 0.6);
-  color: #ece6d1;
-  width: 70%;
-  text-align: center;
-  font-size: 14px;
-  padding: 8px;
-  outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(236,230,209,0.6);
+    color: #ece6d1;
+    width: 70%;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px;
+    outline: none;
 }
 
+/* ---------- BUTTON ---------- */
 button {
-  background: transparent;
-  border: 1px solid #ece6d1;
-  color: #ece6d1;
-  padding: 18px 50px;
-  border-radius: 60px;
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  cursor: pointer;
+    background: transparent;
+    /* Use a rich purple accent color for the default button */
+    border: 1px solid #7D4EFA; 
+    color: #7D4EFA;
+    padding: 18px 50px;
+    border-radius: 60px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-  background: #ece6d1;
-  color: #0d0f0e;
+    background: #7D4EFA;
+    color: #0d0f0e;
+    box-shadow: 0 0 10px rgba(125, 78, 250, 0.5); /* Matching hover glow */
 }
 
+/* ---------- FOOTER ---------- */
 .footer {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  opacity: 0.5;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+}
+
+/* ---------- RITUAL OVERLAY ---------- */
+#ritualOverlay {
+    position: fixed;
+    inset: 0;
+    /* Make overlay darker than the screen background */
+    background: rgba(7,8,8,0.98); 
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* ---------- BREWER SCENE LAYOUT ---------- */
+#brewerScene {
+    justify-content: flex-start;
+    gap: 40px;
+}
+/* ... (Keep existing layout styles for h2, section, brewInfo) ... */
+#brewerScene button {
+    /* Keep the primary action button as cyan for high visibility */
+    border-color: #38c8ff; 
+    color: #38c8ff;
+}
+#brewerScene button:hover {
+    background: #38c8ff;
+    color: #070808;
+    box-shadow: 0 0 15px rgba(56, 200, 255, 0.6);
+}
+/* ... (Keep your existing styles above this section) ... */
+
+/* --- BREWER SCENE LAYOUT (Updated) --- */
+
+#brewerScene section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+#brewInstructions {
+    margin-top: 20px; /* Space between circle and instructions */
+    margin-bottom: 40px; /* Space between instructions and button */
+    max-width: 80%;
+}
+
+#brewInfo {
+    /* Removed margin: 40px 0; from previous version to tighten the layout */
+    margin: 0 0 15px 0; 
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.9;
+    letter-spacing: 0.05em;
+}
+
+/* ... (Keep the rest of your #brewerScene styles) ... */
+.ritual-cup {
+    position: relative;
+    width: 60px;
+    height: 40px;
+    background: #503d32; /* Coffee/dark brown color */
+    border: 2px solid #ece6d1;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* Cup Handle */
+.ritual-cup::before {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 5px;
+    width: 15px;
+    height: 25px;
+    border: 2px solid #ece6d1;
+    border-radius: 50%;
+    border-left: none;
+}
+
+/* Cup Steam Animation */
+.steam {
+    position: absolute;
+    top: -30px; /* Position above the cup */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #ece6d1; /* Steam color */
+    opacity: 0;
+    filter: blur(0.5px);
+    animation: steam 4s linear infinite;
+}
+
+.steam:nth-child(2) {
+    animation-delay: 1s;
+    left: 40%;
+}
+
+.steam:nth-child(3) {
+    animation-delay: 2s;
+    left: 60%;
+}
+
+@keyframes steam {
+    0% {
+        transform: translate(-50%, 0) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* --- SCENE SPECIFIC STYLES --- */
+
+/* Style for the cup container in the ready scene */
+#readyCupContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 220px; /* Matching circle-wrapper height */
+}
+
+/* Style for the cup container in the brewer scene */
+#brewerScene .circle-wrapper {
+    /* Hiding the breathing circle when instructions are shown, 
+       or we can place the cup inside the circle for visual impact. 
+       Let's place the cup inside the circle */
+    border: none; /* Make the circle look less like a planet when it's a cup container */
 }
 </style>
 </head>
 
 <body>
 
-<div id="intro" class="screen" style="display:block">
+<div class="stars"></div>
+<div class="twinkling"></div>
 
+<div id="intro" class="screen">
   <div>
     <h1>BUNA</h1>
-    <p id="sub">Enter the circle</p>
-    <div id="count">User <span id="num">01</span></div>
+    <p class="sub-text">Enter the circle</p>
+    <!-- <div id="count">User <span id="num">–</span></div> -->
   </div>
 
   <div class="circle-wrapper">
     <div class="circle">
-      <input id="nameInput" type="text" placeholder="your name…" />
+      <input id="nameInput" type="text" placeholder="your name (optional)" />
     </div>
   </div>
 
@@ -134,10 +341,82 @@ button:hover {
     <button onclick="enterBuna()">Continue</button>
     <div class="footer" style="margin-top:25px;">A moment will be chosen</div>
   </div>
+</div>
+
+<div id="planet" class="screen">
+  <div>
+    <h1>BUNA</h1>
+    <p id="planetSub" class="sub-text">The circle is forming</p> 
+  </div>
+
+  <div class="circle-wrapper">
+    <div class="circle"></div>
+  </div>
+
+  <div id="planetFooter" class="footer">
+    Waiting for participants (need 4). Remain present.
+  </div>
+</div>
+
+<div id="brewerScene" class="screen">
+  
+  <header>
+    <h2>BUNA — BREWER</h2>
+  </header>
+
+  <section>
+    <div class="circle-wrapper" style="animation: none;">
+        <div class="ritual-cup">
+            <div class="steam"></div>
+            <div class="steam"></div>
+            <div class="steam"></div>
+        </div>
+    </div>
+    
+    <div id="brewInstructions">
+        <p id="brewInfo" class="infoText">
+            The moment has come. Follow the ancient steps:
+        </p>
+        <ul style="list-style: none; padding: 0; margin: 15px 0;">
+            <li style="font-size: 13px; opacity: 0.8; margin-bottom: 8px;">1. Purify: Cleanse your brewing vessel.</li>
+            <li style="font-size: 13px; opacity: 0.8; margin-bottom: 8px;">2. Measure: Use 1:15 ratio (coffee to water).</li>
+            <li style="font-size: 13px; opacity: 0.8;">3. Pour: Begin with a slow, even spiral.</li>
+        </ul>
+    </div>
+    
+    <button onclick="announce()">I AM READY</button>
+  </section>
+  
+  <footer>
+    <div class="footer">
+      When you press I AM READY, all participants will be notified.
+    </div>
+  </footer>
 
 </div>
-<div id="planet" class="screen" style="display:none">
-  DISPLAY PLANET GRAPHIC HERE
+
+<div id="readyScene" class="screen">
+  <div>
+    <h1>BUNA</h1>
+    <p class="sub-text">The brew is ready</p>
+  </div>
+
+  <div class="circle-wrapper" style="transform: scale(1.5); animation: none;">
+    <div class="ritual-cup" style="width: 80px; height: 55px;">
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+    </div>
+  </div>
+
+  <div class="footer">Remain present</div>
+</div>
+
+<div id="ritualOverlay">
+  <div class="overlay-box">
+    <h2>RITUAL IN PROGRESS</h2>
+    <p>The circle is closed. Please another time.</p>
+  </div>
 </div>
 
 </body>
