@@ -1,37 +1,30 @@
-# The Buna Ritual: A Speculative Design Probe
+# ☕ The Buna Ritual: Your Speculative Coffee App
 
-## Project Overview
+## 💡 The Core Idea
 
-The **Buna Ritual** is a multi-user web application designed as a **speculative design probe**. It transforms the mundane task of brewing coffee into a moment of **mandatory, collective synchronization** among users in a shared space.
+This project is a small, multiplayer web application built to explore a strange social question: **If we want real, shared community time, does technology need to *force* it?**
 
-This project critiques the fragmentation of attention and the loss of synchronous social moments in digitally mediated environments.
+The **Buna Ritual** critiques our digitally fragmented lives by transforming the simple act of making coffee into a mandatory, synchronized ceremony.
 
-### The Core Provocation
+## ✨ How the Ritual Works
 
-If we want to reclaim genuine, shared communal time, must it be **technologically enforced**? What freedom must we sacrifice to achieve guaranteed presence?
+The app uses strict rules to ensure a collective pause:
 
+1.  **Enrollment:** When 4 people enroll, the ritual begins.
+2.  **Selection:** The app randomly picks one person—the **Brewer**.
+3.  **Synchronization:**
+    * **Brewer:** Gets the instruction screen (and makes the coffee!).
+    * **Everyone Else:** Must wait, watching the breathing "Planet" screen, until the Brewer is finished.
+4.  **The Pause:** The UI is designed to feel ceremonial and cosmic, forcing users to step out of their individual timelines and share a single, silent moment of waiting.
 
+## 🛠️ Quick Start
 
-### The Ritual Explained
+This project uses Node.js and Socket.IO.
 
-The system elevates the simple act of brewing coffee into a structured ceremony:
-
-1.  **Threshold:** The Ritual only begins when a minimum of **4 users** enroll on the platform.
-2.  **Selection:** The system randomly selects one person as the **Brewer**.
-3.  **Waiting State:** All non-brewers are placed in the passive **"Waiting State,"** visually represented by the breathing cosmic "Planet" screen, until the Brewer is ready.
-4.  **Action & Synchronization:** The Brewer receives specific instructions and, upon completion, presses "I AM READY." This synchronizes the final notification to everyone instantly.
+1.  **Install:** `npm install express socket.io`
+2.  **Start Server:** `node server.js`
+3.  **Go to:** `http://localhost:3333` (Open **4 tabs** to see the full effect!)
 
 ---
 
-## Technical Setup and Installation
-
-This project uses a Node.js backend with Socket.IO for real-time communication.
-
-### Prerequisites
-
-* Node.js (v14+)
-* npm (or yarn)
-
-### 1. File Structure
-
-Ensure you have the following structure:
+*This artifact asks: Is enforced connection the cost of a synchronous digital society?*
