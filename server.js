@@ -18,7 +18,7 @@ let enrolledUsers = [];
 let bunaTimer; // Stores the timeout ID
 
 // --- Configuration ---
-const THRESHOLD = 4; // Number of users required to start the ritual
+const THRESHOLD = 2; // Number of users required to start the ritual
 const BREWER_DELAY_MS = 10000; // 10 seconds delay before announcing brewer (for testing)
 
 io.on("connection", async (socket) => {
