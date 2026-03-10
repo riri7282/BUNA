@@ -33,7 +33,7 @@ socket.on("userinfo", data => {
 socket.on("ritualStartWaiting", (e) => {
     // Non-brewers should see the planet is active and waiting
     document.getElementById("planetSub").textContent = "The planet is observing";
-    document.getElementById("planetFooter").textContent = "A brewer has been selected. Waiting for the ritual to begin...";
+    document.getElementById("planetFooter").textContent = "Waiting for the ritual to begin...";
 });
 
 // 3. Brewer Notification (Only sent to the selected brewer)
@@ -47,7 +47,7 @@ socket.on("ritualBegun", (e) => {
     console.log("I am NOT the brewer. The ritual has officially begun.");
     // Update non-brewer screen to reflect active waiting
     document.getElementById("planetSub").textContent = "Waiting for the brewer...";
-    document.getElementById("planetFooter").textContent = "The ritual is in progress. Remain present.";
+    document.getElementById("planetFooter").textContent = "A brewer has been selected. Remain present.";
 });
 
 // 5. Buna Ready Notification (for non-brewers)
