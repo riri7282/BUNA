@@ -38,11 +38,27 @@ function clearCountdown() {
   document.getElementById("timer").textContent = "Complete";
 }
 
-// --- Haptic ---
-function triggerHaptic() {
-  if ("vibrate" in navigator) {
-    navigator.vibrate([200, 100, 200]);
-  }
+// --- Sound Ping ---
+function triggerSound() {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  [0, 0.3, 0.6].forEach(delay => {
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime + delay);
+    oscillator.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + delay + 0.4);
+
+    gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime + delay);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.5);
+
+    oscillator.start(audioCtx.currentTime + delay);
+    oscillator.stop(audioCtx.currentTime + delay + 0.5);
+  });
 }
 
 // --- Server Events ---
@@ -69,13 +85,13 @@ socket.on("ritualBegun", () => {
 
 socket.on("bunaIsReady", () => {
   console.log("Buna is ready — lockout starting.");
-  triggerHaptic();
+  triggerSound();
   showScreen("readyScene");
 });
 
 socket.on("lockoutStarted", (data) => {
   console.log("Lockout started.");
-  triggerHaptic();
+  triggerSound();
   showScreen("lockoutScene");
   startCountdown(data.duration);
 });

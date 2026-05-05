@@ -18,8 +18,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-y: auto;
     position: relative;
 }
 
@@ -63,7 +63,7 @@ body {
 
 .screen {
     width: 360px;
-    height: 640px;
+    min-height: 640px;
     padding: 40px 30px;
     box-sizing: border-box;
     display: none;
@@ -157,21 +157,26 @@ button:hover {
 
 #brewerScene {
     justify-content: flex-start;
-    gap: 40px;
+    gap: 20px;
+    height: auto;
+    min-height: 640px;
+    overflow-y: auto;
+    padding-bottom: 40px;
 }
 
 #brewerScene section {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
+    gap: 15px;
 }
 
 #brewInstructions {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     max-width: 80%;
 }
 
@@ -197,7 +202,7 @@ button:hover {
 .ritual-cup {
     position: relative;
     width: 60px;
-    height: 40px;
+    height: 60px;
     background: #503d32;
     border: 2px solid #ece6d1;
     border-radius: 0 0 15px 15px;
@@ -236,14 +241,6 @@ button:hover {
 @keyframes steam {
     0%   { transform: translate(-50%, 0) scale(1); opacity: 0.8; }
     100% { transform: translate(-50%, -50px) scale(1.5); opacity: 0; }
-}
-
-#readyCupContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 220px;
 }
 
 #lockoutScene {
@@ -291,6 +288,54 @@ button:hover {
 #durationSelect option {
     background: #070808;
     color: #ece6d1;
+}
+
+.brew-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+    max-width: 260px;
+}
+
+.brew-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border: 1px solid rgba(56,200,255,0.15);
+    border-radius: 8px;
+    background: rgba(56,200,255,0.04);
+    text-align: left;
+}
+
+.step-num {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: rgba(56,200,255,0.4);
+    letter-spacing: 0.05em;
+    min-width: 28px;
+}
+
+.step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.step-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #38c8ff;
+}
+
+.step-desc {
+    font-size: 11px;
+    opacity: 0.5;
+    letter-spacing: 0.05em;
 }
 </style>
 </head>
@@ -345,12 +390,30 @@ button:hover {
       </div>
     </div>
     <div id="brewInstructions">
-      <p id="brewInfo" class="infoText">The moment has come. Follow the ancient steps:</p>
-      <ul style="list-style: none; padding: 0; margin: 15px 0;">
-        <li style="font-size:13px; opacity:0.8; margin-bottom:8px;">1. Purify: Cleanse your brewing vessel.</li>
-        <li style="font-size:13px; opacity:0.8; margin-bottom:8px;">2. Measure: Use 1:15 ratio (coffee to water).</li>
-        <li style="font-size:13px; opacity:0.8;">3. Pour: Begin with a slow, even spiral.</li>
-      </ul>
+      <p id="brewInfo" class="infoText">The moment has come.</p>
+      <div class="brew-steps">
+        <div class="brew-step">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <span class="step-title">Purify</span>
+            <span class="step-desc">Cleanse your brewing vessel.</span>
+          </div>
+        </div>
+        <div class="brew-step">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <span class="step-title">Measure</span>
+            <span class="step-desc">1 part coffee. 15 parts water.</span>
+          </div>
+        </div>
+        <div class="brew-step">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <span class="step-title">Pour</span>
+            <span class="step-desc">Slow. Steady. Spiral.</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div style="margin-bottom: 20px;">
       <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; opacity:0.5; margin-bottom:10px;">Set ritual duration</p>
@@ -376,7 +439,7 @@ button:hover {
     <p class="sub-text">The circle is closed</p>
   </div>
   <div>
-    <p id="timer">8:00</p>
+    <p id="timer">--:--</p>
     <p id="timerLabel">Remain present</p>
   </div>
   <p class="lockout-message">
