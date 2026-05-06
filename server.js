@@ -18,7 +18,7 @@ let bunaTimer;
 let lockoutTimer;
 
 // --- Configuration ---
-const THRESHOLD = 2;
+const THRESHOLD = 4;
 const BREWER_DELAY_MS = 10000;
 
 io.on("connection", async (socket) => {
